@@ -1,3 +1,5 @@
+package src;
+
 public interface Movable {
     void move();
     void turnLeft();

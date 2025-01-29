@@ -1,6 +1,8 @@
+package src;
+
 import java.awt.*;
 
-public class Saab95 extends Car{
+public class Saab95 extends src.Car {
 
     private boolean turboOn;
     
@@ -9,7 +11,7 @@ public class Saab95 extends Car{
         color = Color.red;
         enginePower = 125;
 	    turboOn = false;
-        modelName = "Saab95";
+        modelName = "src.Saab95";
         stopEngine();
     }
 

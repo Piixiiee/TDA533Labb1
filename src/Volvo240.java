@@ -1,13 +1,15 @@
+package src;
+
 import java.awt.*;
 
-public class Volvo240 extends Car{
+public class Volvo240 extends src.Car{
 
     private final static double trimFactor = 1.25;
     public Volvo240(){
         nrDoors = 4;
         color = Color.black;
         enginePower = 100;
-        modelName = "Volvo240";
+        modelName = "src.Volvo240";
         stopEngine();
     }
     
