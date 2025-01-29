@@ -4,7 +4,7 @@ Vilka för- och nackdelar ser ni?
 Svar: Vi borde använda subclassing eftersom att vi vill implementera metoder, inte bara se vilka metoder klasserna har.
 Vi vill inte använda interfaces eftersom att det finns flera metoder som båda bilarna ska ha som gör samma sak, vilket man hade
 behövt implementera i båda bil-classerna om vi använt ett Car-interface istället för Car-superclass.
-Båda kan egentligern användas, men man koden behöver dupliceras om vi använder interface över superclass, och därför
+Båda kan egentligen användas, men koden behöver dupliceras om vi använder interface över superclass, och därför
 sparar vi ingen tid och får mycket code duplication.
 Fördelarna med subclassing är att vi minskar code duplication eftersom att många av dom olika bilarnas metoder är samma.
 Fördelarna med interfaces är att man kan ärva från flera interfaces, men i just detta fallet är det inget vi behöver.
