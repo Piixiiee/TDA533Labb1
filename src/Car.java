@@ -8,10 +8,10 @@ public abstract class Car implements src.Movable {
     protected double currentSpeed; // The current speed of the car
     protected Color color; // Color of the car
     protected String modelName; // The car model name
-    protected double x; //The x position of the car
-    protected double y; //The y position of the car
+    protected double x = 0; //The x position of the car
+    protected double y = 0; //The y position of the car
     private double xDir = 1.0; //The direction on x-axis
-    private double yDir; //The direction on y-axis
+    private double yDir = 0; //The direction on y-axis
 
     protected abstract double speedFactor();
 
@@ -29,9 +29,21 @@ public abstract class Car implements src.Movable {
         return currentSpeed;
     }
 
+    public double getX() {return x;}
+    public double getY() {return y;}
+
+    public double getXDir() {return xDir;}
+    public double getYDir() {return yDir;}
+
     public Color getColor(){
         return color;
     }
+
+    public void setX(double x){this.x =x;}
+    public void setY(double y){this.y =y;}
+
+    public void setXDir(double xDir){this.xDir = xDir;}
+    public void setYDir(double yDir){this.yDir = yDir;}
 
     public void setColor(Color clr){
         color = clr;
