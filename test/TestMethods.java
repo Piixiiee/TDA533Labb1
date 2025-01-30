@@ -1,7 +1,5 @@
 import java.awt.*;
 //import java.util.Random;
-import src.Saab95;
-import src.Volvo240;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -106,7 +104,7 @@ public class TestMethods {
         double oldSpeed = saab.getCurrentSpeed();
         saab.setTurboOn();
         saab.gas(2);
-        assertEquals((oldSpeed + (125 * 0.01 * 1.3) * 2), saab.getCurrentSpeed(), 0.001);
+        assertEquals(Math.min((oldSpeed + (125 * 0.01 * 1.3) * 2), 125), saab.getCurrentSpeed(), 0.001);
     }
 
     @Test
@@ -114,7 +112,7 @@ public class TestMethods {
         double oldSpeed = saab.getCurrentSpeed();
         saab.setTurboOff();
         saab.brake(2);
-        assertEquals((oldSpeed - (125 * 0.01) * 2), saab.getCurrentSpeed(), 0.001);
+        assertEquals(Math.max((oldSpeed - (125 * 0.01) * 2), 0), saab.getCurrentSpeed(), 0.001);
     }
 
     // sanity checks
@@ -130,7 +128,7 @@ public class TestMethods {
     @Test
     public void testNegGas(){
         double oldSpeed = saab.getCurrentSpeed();
-        saab.gas(200);
+        saab.gas(-200);
         assertTrue (saab.getCurrentSpeed() >= oldSpeed);
     }
 }

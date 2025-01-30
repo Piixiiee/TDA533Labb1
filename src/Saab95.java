@@ -1,8 +1,6 @@
-package src;
-
 import java.awt.*;
 
-public class Saab95 extends src.Car {
+public class Saab95 extends Car {
 
     private boolean turboOn;
     
@@ -31,11 +29,11 @@ public class Saab95 extends src.Car {
     }
     @Override
     protected void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
     }
     @Override
     protected void decrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,enginePower);
     }
     
     // TODO fix this method according to lab pm

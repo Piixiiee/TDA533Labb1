@@ -1,8 +1,6 @@
-package src;
-
 import java.awt.*;
 
-public abstract class Car implements src.Movable {
+public abstract class Car implements Movable {
     protected int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
     protected double currentSpeed; // The current speed of the car
@@ -38,9 +36,6 @@ public abstract class Car implements src.Movable {
     public Color getColor(){
         return color;
     }
-
-    public void setX(double x){this.x =x;}
-    public void setY(double y){this.y =y;}
 
     public void setXDir(double xDir){this.xDir = xDir;}
     public void setYDir(double yDir){this.yDir = yDir;}
