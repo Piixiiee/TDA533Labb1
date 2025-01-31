@@ -1,5 +1,4 @@
 import java.awt.*;
-//import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,13 +7,11 @@ import static org.junit.Assert.*;
 public class TestMethods {
     private Saab95 saab;
     private Volvo240 volvo;
-    //private Random random;
 
     @Before
     public void setUp() {
         saab = new Saab95();
         volvo = new Volvo240();
-        //random = new Random();
     }
 
     @Test //check amount of doors on Saab
@@ -69,8 +66,6 @@ public class TestMethods {
 
     @Test
     public void testTurnLeft() {
-        volvo.setXDir(1);
-        volvo.setYDir(0);
         volvo.turnLeft();
         assertEquals(0, volvo.getXDir(), 0.001);
         assertEquals(1, volvo.getYDir(), 0.001);
@@ -78,11 +73,9 @@ public class TestMethods {
 
     @Test
     public void testTurnRight() {
-        volvo.setXDir(-1);
-        volvo.setYDir(0);
         volvo.turnRight();
         assertEquals(0, volvo.getXDir(), 0.001);
-        assertEquals(1, volvo.getYDir(), 0.001);
+        assertEquals(-1, volvo.getYDir(), 0.001);
     }
 
     @Test
