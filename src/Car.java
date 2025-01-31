@@ -68,4 +68,17 @@ public abstract class Car implements Movable {
         yDir = -xDir;
         xDir = oldYDir;
     }
+
+    public void gas(double amount){
+        double oldSpeed = currentSpeed;
+        incrementSpeed(amount);
+        if (currentSpeed < oldSpeed || amount > 1 || amount < 0) {currentSpeed = oldSpeed;}
+    }
+
+    public void brake(double amount){
+        double oldSpeed = currentSpeed;
+        decrementSpeed(amount);
+        if (currentSpeed > oldSpeed || amount > 1 || amount < 0) {currentSpeed = oldSpeed;}
+    }
+
 }

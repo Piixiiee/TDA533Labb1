@@ -88,41 +88,48 @@ public class TestMethods {
     @Test
     public void testGasVolvo() {
         double oldSpeed = volvo.getCurrentSpeed();
-        volvo.gas(2);
-        assertEquals(Math.min(oldSpeed + 1.25 * 2, 100), volvo.getCurrentSpeed(), 0.001);
+        volvo.gas(1);
+        assertEquals(Math.min(oldSpeed + 1.25, 100), volvo.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void testBrakeVolvo() {
         double oldSpeed = volvo.getCurrentSpeed();
-        volvo.brake(2);
-        assertEquals(Math.max(oldSpeed - 1.25 * 2, 0), volvo.getCurrentSpeed(), 0.001);
+        volvo.brake(1);
+        assertEquals(Math.max(oldSpeed - 1.25, 0), volvo.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void testGasSaab() {
         double oldSpeed = saab.getCurrentSpeed();
         saab.setTurboOn();
-        saab.gas(2);
-        assertEquals(Math.min((oldSpeed + (125 * 0.01 * 1.3) * 2), 125), saab.getCurrentSpeed(), 0.001);
-    }
+        saab.gas(1);
+        assertEquals(Math.min((oldSpeed + (125 * 0.01 * 1.3)), 125), saab.getCurrentSpeed(), 0.001);}
 
     @Test
     public void testBrakeSaab() {
         double oldSpeed = saab.getCurrentSpeed();
         saab.setTurboOff();
-        saab.brake(2);
-        assertEquals(Math.max((oldSpeed - (125 * 0.01) * 2), 0), saab.getCurrentSpeed(), 0.001);
+        saab.brake(1);
+        assertEquals(Math.max((oldSpeed - (125 * 0.01)), 0), saab.getCurrentSpeed(), 0.001);
     }
 
     // sanity checks
 
     @Test
     public void testMaxSpeed() {
-        saab.gas(300);
+        saab.gas(200);
         assertTrue (saab.getCurrentSpeed() <= saab.getEnginePower());
-        volvo.gas(300);
+        volvo.gas(200);
         assertTrue (volvo.getCurrentSpeed() <= volvo.getEnginePower());
+    }
+
+    @Test
+    public void testMinSpeed() {
+        saab.brake(400);
+        assertTrue (saab.getCurrentSpeed() >= 0);
+        volvo.brake(400);
+        assertTrue (volvo.getCurrentSpeed() >= 0);
     }
 
     @Test
@@ -130,5 +137,12 @@ public class TestMethods {
         double oldSpeed = saab.getCurrentSpeed();
         saab.gas(-200);
         assertTrue (saab.getCurrentSpeed() >= oldSpeed);
+    }
+
+    @Test
+    public void testPosBrake(){
+        double oldSpeed = saab.getCurrentSpeed();
+        saab.brake(200);
+        assertTrue(saab.getCurrentSpeed() <= oldSpeed);
     }
 }

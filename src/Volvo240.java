@@ -23,17 +23,6 @@ public class Volvo240 extends Car{
     }
     @Override
     protected void decrementSpeed(double amount){
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
-    }
-
-
-    // TODO fix this method according to lab pm
-    public void gas(double amount){
-        incrementSpeed(amount);
-    }
-
-    // TODO fix this method according to lab pm
-    public void brake(double amount){
-        decrementSpeed(amount);
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 }
