@@ -11,6 +11,7 @@ public class Saab95 extends Vehicle {
 	    turboOn = false;
         modelName = "src.Saab95";
         stopEngine();
+        transportable = true;
     }
 
     public void setTurboOn(){

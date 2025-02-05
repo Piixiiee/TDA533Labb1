@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Vehicle {
+public class Scania extends Vehicle implements Loadable{
 
     protected int bedAngle;
 
@@ -11,8 +11,10 @@ public class Scania extends Vehicle {
         modelName = "src.Scania";
         bedAngle = 0;
         stopEngine();
+        transportable = false;
     }
 
+    @Override
     protected double speedFactor() {
         return enginePower * 0.01;
     }

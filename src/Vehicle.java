@@ -10,6 +10,7 @@ public abstract class Vehicle implements Movable {
     protected double y = 0; // The y position of the car
     protected double xDir = 1.0; // The direction on x-axis
     protected double yDir = 0; // The direction on y-axis
+    protected boolean transportable; // A bool to decide if vehicle can be transported or not
 
     protected abstract double speedFactor();
 

@@ -8,42 +8,44 @@ public class TestMethods {
     private Saab95 saab;
     private Volvo240 volvo;
     private Scania scania;
+    private CarTransport carTransport;
 
     @Before
     public void setUp() {
         saab = new Saab95();
         volvo = new Volvo240();
         scania = new Scania();
+        carTransport = new CarTransport();
     }
 
-    @Test //check amount of doors on Saab
+    @Test
     public void testSaabDoors() {
         assertEquals(2, saab.getNrDoors());
     }
 
-    @Test //check amount of doors on Volvo
+    @Test
     public void testVolvoDoors() {
         assertEquals(4, volvo.getNrDoors());
     }
 
-    @Test //test color of Saab
+    @Test
     public void testSaabColors() {
         saab.setColor(Color.RED);
         assertEquals(Color.RED, saab.getColor());
     }
 
-    @Test //test color of Volvo
+    @Test
     public void testVolvoColors() {
         volvo.setColor(Color.GREEN);
         assertEquals(Color.GREEN, volvo.getColor());
     }
 
-    @Test //test engine power of Saab
+    @Test
     public void testSaabEnginePower() {
         assertEquals(125, saab.getEnginePower(), 0.001);
     }
 
-    @Test //test engine power of Volvo
+    @Test
     public void testVolvoEnginePower() {
         assertEquals(100, volvo.getEnginePower(), 0.001);
     }
@@ -56,6 +58,8 @@ public class TestMethods {
         assertEquals(0.1, saab.getCurrentSpeed(), 0.001);
         scania.startEngine();
         assertEquals(0.1, scania.getCurrentSpeed(), 0.001);
+        carTransport.startEngine();
+        assertEquals(0.1, carTransport.getCurrentSpeed(), 0.001 );
     }
 
     @Test
@@ -66,6 +70,8 @@ public class TestMethods {
         assertEquals(0, saab.getCurrentSpeed(), 0.001);
         scania.stopEngine();
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
+        carTransport.stopEngine();
+        assertEquals(0, carTransport.getCurrentSpeed(), 0.001);
     }
 
     @Test
@@ -156,8 +162,49 @@ public class TestMethods {
         assertEquals(scania.getYDir() * scania.getCurrentSpeed(), scania.getY(), 0.001);
     }
 
+    @Test
+    public void testLoadCarTransport() { // Load saab and volvo on carTransport, check placement and x & y values
+        saab.x = carTransport.x + 1;
+        saab.y = carTransport.y - 1;
+        volvo.x = carTransport.x - 1;
+        volvo.y = carTransport.y + 1;
+        carTransport.angleDown();
+        carTransport.load(saab);
+        carTransport.load(volvo);
+        carTransport.angleUp();
+        assertEquals(saab, carTransport.vehicles[0]);
+        assertEquals(volvo, carTransport.vehicles[1]);
+        assertEquals(carTransport.x, saab.x, 0.001);
+        assertEquals(carTransport.y, saab.y, 0.001);
+    }
 
+    @Test
+    public void testUnloadCarTransport() {
+        carTransport.unload(); // Try to unload vehicle when bedAngle is up - should not work
+        assertEquals(volvo, carTransport.vehicles[1]);
+        carTransport.angleDown();
+        carTransport.unload(); // Unload now that bedAngle is down
+        carTransport.angleUp();
+        assertEquals(saab, carTransport.vehicles[0]);
+        assertNull(carTransport.vehicles[1]);
+        assertEquals(saab.x, carTransport.x, 0.001);
+        assertEquals(saab.y, carTransport.y, 0.001);
+        assertEquals(carTransport.x + 1, volvo.x, 0.001);
+        assertEquals(carTransport.y + 1, volvo.y, 0.001);
+    }
 
+    @Test
+    public void testMoveCarTransport() {
+        double oldVolvoX = carTransport.x + 1;
+        double oldVolvoY = carTransport.y + 1;
+        carTransport.startEngine();
+        carTransport.move();
+        carTransport.move();
+        assertEquals(carTransport.x, saab.x, 0.001);
+        assertEquals(carTransport.y, saab.y, 0.001);
+        assertEquals(oldVolvoX, volvo.x, 0.001);
+        assertEquals(oldVolvoY, volvo.y, 0.001);
+    }
 
     // sanity checks
 
@@ -169,6 +216,8 @@ public class TestMethods {
         assertTrue (volvo.getCurrentSpeed() <= volvo.getEnginePower());
         scania.gas(200);
         assertTrue (scania.getCurrentSpeed() <= scania.getEnginePower());
+        carTransport.gas(200);
+        assertTrue(carTransport.getCurrentSpeed() <= carTransport.getEnginePower());
 
     }
 
@@ -180,6 +229,8 @@ public class TestMethods {
         assertTrue (volvo.getCurrentSpeed() >= 0);
         scania.brake(400);
         assertTrue(scania.getCurrentSpeed() >= 0);
+        carTransport.brake(400);
+        assertTrue(carTransport.getCurrentSpeed() >= 0);
     }
 
     @Test
