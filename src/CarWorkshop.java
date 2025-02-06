@@ -5,6 +5,7 @@ public abstract class CarWorkshop<T> implements Loadable {
     protected T[] vehicles;
 
     public CarWorkshop(Class<?> vehicleType, int capacity) {
+        // vehicles = new vehicleType.getClass()[capacity];
     }
 
 }
