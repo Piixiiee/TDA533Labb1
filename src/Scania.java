@@ -1,8 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Vehicle implements Loadable{
-
-    protected int bedAngle;
+public class Scania extends Truck { // Scania is a type of truck
 
     public Scania() {
         nrDoors = 2;
@@ -19,28 +17,10 @@ public class Scania extends Vehicle implements Loadable{
         return enginePower * 0.01;
     }
 
-    public void angleUp() {
+    @Override
+    public void open() {
         if (currentSpeed == 0) {
             bedAngle = 70;
-        }
-    }
-
-    public void angleDown() {
-        bedAngle = 0;
-    }
-
-    @Override
-    public void startEngine(){
-        if (bedAngle == 0) {
-            currentSpeed = 0.1;
-        }
-    }
-
-    @Override
-    public void move() { // Move car at current speed in X and Y directions
-        if (bedAngle == 0) {
-            x += getCurrentSpeed() * xDir;
-            y += getCurrentSpeed() * yDir;
         }
     }
 

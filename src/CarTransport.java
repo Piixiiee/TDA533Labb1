@@ -1,8 +1,7 @@
 import java.awt.*;
 
-public class CarTransport extends Vehicle implements Loadable {
+public class CarTransport extends Truck implements Loadable {
 
-    protected int bedAngle;
     protected Vehicle[] vehicles;
 
     public CarTransport() {
@@ -21,24 +20,16 @@ public class CarTransport extends Vehicle implements Loadable {
         return enginePower * 0.01;
     }
 
-    public void angleDown() {
-        if (currentSpeed == 0) {
-            bedAngle = 1;
-        }
-    }
-
-    public void angleUp() {
-        bedAngle = 0;
-    }
-
     @Override
     public void move() { // Move car transport and loaded cars at current speed in X and Y directions
-        x += getCurrentSpeed() * xDir;
-        y += getCurrentSpeed() * yDir;
-        for (int i = 0; i < 4; i++) {
-            if (vehicles[i] != null) {
-                vehicles[i].x = x;
-                vehicles[i].y = y;
+        if (bedAngle == 0) {
+            x += getCurrentSpeed() * xDir;
+            y += getCurrentSpeed() * yDir;
+            for (int i = 0; i < 4; i++) {
+                if (vehicles[i] != null) {
+                    vehicles[i].x = x;
+                    vehicles[i].y = y;
+                }
             }
         }
     }

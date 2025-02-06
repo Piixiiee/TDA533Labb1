@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -142,10 +143,10 @@ public class TestMethods {
     @Test
     public void testStartEngineScania() {
         scania.stopEngine();
-        scania.angleUp();
+        scania.open();
         scania.startEngine();
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
-        scania.angleDown();
+        scania.close();
         scania.startEngine();
         assertEquals(0.1, scania.getCurrentSpeed(), 0.001);
     }
@@ -156,7 +157,7 @@ public class TestMethods {
         assertEquals(scania.getXDir() * scania.getCurrentSpeed(), scania.getX(), 0.001);
         assertEquals(scania.getYDir() * scania.getCurrentSpeed(), scania.getY(), 0.001);
         scania.stopEngine();
-        scania.angleUp();
+        scania.close();
         scania.move();
         assertEquals(scania.getXDir() * scania.getCurrentSpeed(), scania.getX(), 0.001);
         assertEquals(scania.getYDir() * scania.getCurrentSpeed(), scania.getY(), 0.001);
@@ -168,10 +169,10 @@ public class TestMethods {
         saab.y = carTransport.y - 1;
         volvo.x = carTransport.x - 1;
         volvo.y = carTransport.y + 1;
-        carTransport.angleDown();
+        carTransport.open();
         carTransport.load(saab);
         carTransport.load(volvo);
-        carTransport.angleUp();
+        carTransport.close();
         assertEquals(saab, carTransport.vehicles[0]);
         assertEquals(volvo, carTransport.vehicles[1]);
         assertEquals(carTransport.x, saab.x, 0.001);
@@ -180,11 +181,12 @@ public class TestMethods {
 
     @Test
     public void testUnloadCarTransport() {
+        testLoadCarTransport();
         carTransport.unload(); // Try to unload vehicle when bedAngle is up - should not work
         assertEquals(volvo, carTransport.vehicles[1]);
-        carTransport.angleDown();
+        carTransport.open();
         carTransport.unload(); // Unload now that bedAngle is down
-        carTransport.angleUp();
+        carTransport.close();
         assertEquals(saab, carTransport.vehicles[0]);
         assertNull(carTransport.vehicles[1]);
         assertEquals(saab.x, carTransport.x, 0.001);
@@ -195,6 +197,7 @@ public class TestMethods {
 
     @Test
     public void testMoveCarTransport() {
+        testUnloadCarTransport();
         double oldVolvoX = carTransport.x + 1;
         double oldVolvoY = carTransport.y + 1;
         carTransport.startEngine();
@@ -249,13 +252,13 @@ public class TestMethods {
 
     @Test
     public void testAngleUp() {
-        scania.angleUp();
+        scania.open();
         assertEquals(70, scania.bedAngle);
     }
 
     @Test
     public void testAngleDown() {
-        scania.angleDown();
+        scania.close();
         assertEquals(0, scania.bedAngle);
     }
 }
