@@ -8,7 +8,7 @@ public class Volvo240 extends Car { // Volvo240 is a type of car
         nrDoors = 4;
         color = Color.black;
         enginePower = 100;
-        modelName = "src.Volvo240";
+        modelName = "Volvo240";
         stopEngine();
         transportable = true;
     }

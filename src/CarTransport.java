@@ -8,7 +8,7 @@ public class CarTransport extends Truck implements Loadable {
         nrDoors = 2;
         color = Color.blue;
         enginePower = 100;
-        modelName = "src.CarTransport";
+        modelName = "CarTransport";
         stopEngine();
         bedAngle = 0;
         transportable = false;

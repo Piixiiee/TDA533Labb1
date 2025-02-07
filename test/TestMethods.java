@@ -10,6 +10,10 @@ public class TestMethods {
     private Volvo240 volvo;
     private Scania scania;
     private CarTransport carTransport;
+    private CarWorkshop volvoWorkshop;
+    private CarWorkshop scaniaWorkshop;
+    private CarWorkshop carWorkshop;
+    private CarWorkshop generalWorkshop;
 
     @Before
     public void setUp() {
@@ -17,6 +21,10 @@ public class TestMethods {
         volvo = new Volvo240();
         scania = new Scania();
         carTransport = new CarTransport();
+        volvoWorkshop = new CarWorkshop<Volvo240>(5);
+        scaniaWorkshop = new CarWorkshop<Scania>(2);
+        carWorkshop = new CarWorkshop<Car>(3);
+        generalWorkshop = new CarWorkshop<Vehicle>(4);
     }
 
     @Test
@@ -258,6 +266,14 @@ public class TestMethods {
 
     @Test
     public void testAngleDown() {
+        scania.close();
+        assertEquals(0, scania.bedAngle);
+    }
+
+// CarWorkshop tests
+
+    @Test
+    public void testCarWorkshop() {
         scania.close();
         assertEquals(0, scania.bedAngle);
     }

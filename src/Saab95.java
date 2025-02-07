@@ -9,7 +9,7 @@ public class Saab95 extends Car { // Saab95 is a type of car
         color = Color.red;
         enginePower = 125;
 	    turboOn = false;
-        modelName = "src.Saab95";
+        modelName = "Saab95";
         stopEngine();
         transportable = true;
     }

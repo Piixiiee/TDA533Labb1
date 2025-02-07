@@ -6,7 +6,7 @@ public class Scania extends Truck { // Scania is a type of truck
         nrDoors = 2;
         color = Color.green;
         enginePower = 100;
-        modelName = "src.Scania";
+        modelName = "Scania";
         bedAngle = 0;
         stopEngine();
         transportable = false;
