@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.util.*;
 
-public class CarTransport extends Truck implements Loadable {
+public class CarTransport<T extends Vehicle> extends Truck implements Loadable<T>, HasTruckBed {
 
     protected Vehicle[] vehicles;
 
@@ -11,7 +12,6 @@ public class CarTransport extends Truck implements Loadable {
         modelName = "CarTransport";
         stopEngine();
         bedAngle = 0;
-        transportable = false;
         vehicles = new Vehicle[4];
     }
 
@@ -40,8 +40,8 @@ public class CarTransport extends Truck implements Loadable {
         return (closeX && closeY);
     }
 
-    public void load(Vehicle vehicle) { // If vehicle fulfills the conditions and car transport has space available, load vehicle
-        if (bedAngle == 1 && vehicle.transportable && closeEnough(vehicle)) {
+    public void load(T vehicle) { // If vehicle fulfills the conditions and car transport has space available, load vehicle
+        if (bedAngle == 1 && (vehicle instanceof IsPersonalVehicle) && closeEnough(vehicle)) {
             for (int i = 0; i < 4; i++) {
                 if (vehicles[i] == null) {
                     vehicles[i] = vehicle;
@@ -51,6 +51,10 @@ public class CarTransport extends Truck implements Loadable {
                 }
             }
         }
+    }
+
+    public void unload(T vehicle) throws Exception {
+        throw new Exception("Cannot unload specific car");
     }
 
     public void unload() { // Unload vehicle from car transport in reverse order of loading; vehicle ends up close to car transport

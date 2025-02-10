@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Vehicle implements Movable {
+public abstract class Vehicle implements Movable, IsVehicle {
     protected int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
     protected double currentSpeed = 0; // The current speed of the car
@@ -10,7 +10,6 @@ public abstract class Vehicle implements Movable {
     protected double y = 0; // The y position of the car
     protected double xDir = 1.0; // The direction on x-axis
     protected double yDir = 0; // The direction on y-axis
-    protected boolean transportable; // A bool to decide if vehicle can be transported or not
 
     protected abstract double speedFactor();
 
@@ -25,8 +24,12 @@ public abstract class Vehicle implements Movable {
         return currentSpeed;
     }
 
-    public double getX() {return x;}
-    public double getY() {return y;}
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
 
     public double getXDir() {return xDir;}
     public double getYDir() {return yDir;}
@@ -37,6 +40,10 @@ public abstract class Vehicle implements Movable {
 
     public void setColor(Color clr){
         color = clr;
+    }
+
+    public String getModelName(){
+        return modelName;
     }
 
     public void startEngine(){

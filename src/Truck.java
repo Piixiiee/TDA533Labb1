@@ -2,13 +2,15 @@ public abstract class Truck extends Vehicle { // Class for all vehicles of type 
 
     protected int bedAngle;
 
-    public void open() {
+    public void lower() {
         if (currentSpeed == 0) {
             bedAngle = 1;
         }
     }
-    public void close() {
-        bedAngle = 0;
+    public void raise() {
+        if (currentSpeed == 0) {
+            bedAngle = 0;
+        }
     }
 
     @Override

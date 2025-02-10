@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Truck { // Scania is a type of truck
+public class Scania extends Truck implements HasTruckBed { // Scania is a type of truck
 
     public Scania() {
         nrDoors = 2;
@@ -9,7 +9,6 @@ public class Scania extends Truck { // Scania is a type of truck
         modelName = "Scania";
         bedAngle = 0;
         stopEngine();
-        transportable = false;
     }
 
     @Override
@@ -18,9 +17,16 @@ public class Scania extends Truck { // Scania is a type of truck
     }
 
     @Override
-    public void open() {
-        if (currentSpeed == 0) {
-            bedAngle = 70;
+    public void lower() { // Truck bed angles to unload
+        if (currentSpeed == 0 && bedAngle < 70) {
+            bedAngle += 10;
+        }
+    }
+
+    @Override
+    public void raise() { // Truck bed angles to neutral position
+        if (currentSpeed == 0 && bedAngle > 0) {
+            bedAngle -= 10;
         }
     }
 

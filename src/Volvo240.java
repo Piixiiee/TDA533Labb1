@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Volvo240 extends Car { // Volvo240 is a type of car
+public class Volvo240 extends Vehicle implements IsPersonalVehicle { // Volvo240 is a type of car
 
     private final static double trimFactor = 1.25;
 
@@ -10,7 +10,6 @@ public class Volvo240 extends Car { // Volvo240 is a type of car
         enginePower = 100;
         modelName = "Volvo240";
         stopEngine();
-        transportable = true;
     }
 
     @Override

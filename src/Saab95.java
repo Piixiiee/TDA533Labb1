@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab95 extends Car { // Saab95 is a type of car
+public class Saab95 extends Vehicle implements IsPersonalVehicle { // Saab95 is a type of car
 
     private boolean turboOn;
     
@@ -11,7 +11,6 @@ public class Saab95 extends Car { // Saab95 is a type of car
 	    turboOn = false;
         modelName = "Saab95";
         stopEngine();
-        transportable = true;
     }
 
     public void setTurboOn(){

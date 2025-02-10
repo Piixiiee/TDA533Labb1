@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -10,10 +11,10 @@ public class TestMethods {
     private Volvo240 volvo;
     private Scania scania;
     private CarTransport carTransport;
-    private CarWorkshop volvoWorkshop;
-    private CarWorkshop scaniaWorkshop;
-    private CarWorkshop carWorkshop;
-    private CarWorkshop generalWorkshop;
+    private CarWorkshop<Volvo240> volvoWorkshop;
+    private CarWorkshop<Scania> scaniaWorkshop;
+    private CarWorkshop<IsPersonalVehicle> carWorkshop;
+    private CarWorkshop<Vehicle> generalWorkshop;
 
     @Before
     public void setUp() {
@@ -23,7 +24,7 @@ public class TestMethods {
         carTransport = new CarTransport();
         volvoWorkshop = new CarWorkshop<Volvo240>(5);
         scaniaWorkshop = new CarWorkshop<Scania>(2);
-        carWorkshop = new CarWorkshop<Car>(3);
+        carWorkshop = new CarWorkshop<IsPersonalVehicle>(3);
         generalWorkshop = new CarWorkshop<Vehicle>(4);
     }
 
@@ -151,10 +152,10 @@ public class TestMethods {
     @Test
     public void testStartEngineScania() {
         scania.stopEngine();
-        scania.open();
+        scania.lower();
         scania.startEngine();
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
-        scania.close();
+        scania.raise();
         scania.startEngine();
         assertEquals(0.1, scania.getCurrentSpeed(), 0.001);
     }
@@ -165,7 +166,7 @@ public class TestMethods {
         assertEquals(scania.getXDir() * scania.getCurrentSpeed(), scania.getX(), 0.001);
         assertEquals(scania.getYDir() * scania.getCurrentSpeed(), scania.getY(), 0.001);
         scania.stopEngine();
-        scania.close();
+        scania.raise();
         scania.move();
         assertEquals(scania.getXDir() * scania.getCurrentSpeed(), scania.getX(), 0.001);
         assertEquals(scania.getYDir() * scania.getCurrentSpeed(), scania.getY(), 0.001);
@@ -177,10 +178,10 @@ public class TestMethods {
         saab.y = carTransport.y - 1;
         volvo.x = carTransport.x - 1;
         volvo.y = carTransport.y + 1;
-        carTransport.open();
+        carTransport.lower();
         carTransport.load(saab);
         carTransport.load(volvo);
-        carTransport.close();
+        carTransport.raise();
         assertEquals(saab, carTransport.vehicles[0]);
         assertEquals(volvo, carTransport.vehicles[1]);
         assertEquals(carTransport.x, saab.x, 0.001);
@@ -192,9 +193,9 @@ public class TestMethods {
         testLoadCarTransport();
         carTransport.unload(); // Try to unload vehicle when bedAngle is up - should not work
         assertEquals(volvo, carTransport.vehicles[1]);
-        carTransport.open();
+        carTransport.lower();
         carTransport.unload(); // Unload now that bedAngle is down
-        carTransport.close();
+        carTransport.raise();
         assertEquals(saab, carTransport.vehicles[0]);
         assertNull(carTransport.vehicles[1]);
         assertEquals(saab.x, carTransport.x, 0.001);
@@ -260,21 +261,79 @@ public class TestMethods {
 
     @Test
     public void testAngleUp() {
-        scania.open();
-        assertEquals(70, scania.bedAngle);
+        scania.lower();
+        assertEquals(10, scania.bedAngle);
     }
 
     @Test
     public void testAngleDown() {
-        scania.close();
+        scania.raise();
         assertEquals(0, scania.bedAngle);
+    }
+
+    @Test
+    public void testCarWorkshopException() {
+        testTurnInVehicle();
+        Exception exception = assertThrows(Exception.class, () -> {
+            carWorkshop.unload();
+        });
+        String expectedMessage = "Must specify car";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void testCarTransportException() {
+        testLoadCarTransport();
+        Exception exception = assertThrows(Exception.class, () -> {
+            carTransport.unload(volvo);
+        });
+        String expectedMessage = "Cannot unload specific car";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 // CarWorkshop tests
 
     @Test
-    public void testCarWorkshop() {
-        scania.close();
-        assertEquals(0, scania.bedAngle);
+    public void testTurnInVehicle() {
+        generalWorkshop.load(volvo);
+        generalWorkshop.load(scania);
+        assertEquals(2, generalWorkshop.vehicles.size());
+        assertEquals(generalWorkshop.vehicles.get(0), volvo);
+        assertEquals(generalWorkshop.vehicles.get(1), scania);
     }
+
+    @Test
+    public void testTurnInWrongVehicle() {
+        carWorkshop.load(volvo);
+        assertEquals(1, carWorkshop.vehicles.size());
+        assertEquals(carWorkshop.vehicles.get(0), volvo);
+    }
+
+    @Test
+    public void testGetVehicle() {
+        testTurnInVehicle();
+        generalWorkshop.unload(volvo);
+        assertEquals(1, generalWorkshop.vehicles.size());
+        assertEquals(generalWorkshop.vehicles.get(0), scania);
+    }
+
+    @Test
+    public void testCarWorkshopCapacity() {
+        Scania scania2 = new Scania();
+        Scania scania3 = new Scania();
+        scaniaWorkshop.load(scania);
+        scaniaWorkshop.load(scania2);
+        scaniaWorkshop.load(scania3);
+        assertEquals(2, scaniaWorkshop.vehicles.size());
+    }
+
+    @Test
+    public void testCarWorkshopContains() {
+        volvoWorkshop.load(volvo);
+        volvoWorkshop.load(volvo);
+        assertEquals(1, volvoWorkshop.vehicles.size());
+    }
+
 }
