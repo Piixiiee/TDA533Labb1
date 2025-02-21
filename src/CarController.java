@@ -49,10 +49,13 @@ public class CarController {
                 if(car.getX() >= (frame.getWidth() - 100) || car.getX() <= 0) {
                     car.xDir = -car.xDir;
                 }
+                else if (car instanceof Volvo240 && car.getX() >= 300){
+                    car.stopEngine();
+                }
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(x, y);
+                frame.drawPanel.moveit(car, x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -115,8 +118,18 @@ public class CarController {
     void lower() {
         for (Vehicle car : cars) {
             if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.lower();
+            }
+        }
+    }
 
-
+    // Calls the raise method for scania truck
+    void raise() {
+        for (Vehicle car : cars) {
+            if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.raise();
             }
         }
     }
