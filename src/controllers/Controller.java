@@ -1,3 +1,5 @@
+package controllers;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +11,14 @@ import java.util.ArrayList;
  * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class Controller {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    protected Timer timer = new Timer(delay, new TimerListener());
+    private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
@@ -27,7 +29,7 @@ public class CarController {
 
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
+        Controller cc = new Controller();
 
         cc.cars.add(new Volvo240());
         cc.cars.add(new Scania());
