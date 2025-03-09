@@ -1,5 +1,9 @@
+package Model;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
 import java.awt.*;
-import java.util.*;
 
 public class CarTransport<T extends Vehicle> extends Truck implements Loadable<T>, HasTruckBed {
 
@@ -9,7 +13,7 @@ public class CarTransport<T extends Vehicle> extends Truck implements Loadable<T
         nrDoors = 2;
         color = Color.blue;
         enginePower = 100;
-        modelName = "CarTransport";
+        modelName = "Classes.CarTransport";
         stopEngine();
         bedAngle = 0;
         vehicles = new Vehicle[4];

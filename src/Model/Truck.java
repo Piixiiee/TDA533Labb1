@@ -1,3 +1,8 @@
+package Model;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
 public abstract class Truck extends Vehicle { // Class for all vehicles of type truck
 
     protected int bedAngle;

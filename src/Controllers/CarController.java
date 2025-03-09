@@ -1,3 +1,9 @@
+package Controllers;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +31,8 @@ public class CarController {
 
     //methods:
 
-    public static void main(String[] args) {
+    public static void initCC(CarController cc) {
         // Instance of this class
-        CarController cc = new CarController();
-
         cc.cars.add(new Volvo240());
         cc.cars.add(new Scania());
         cc.cars.add(new Saab95());
@@ -47,7 +51,8 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle car : cars) {
                 if(car.getX() >= (frame.getWidth() - 100) || car.getX() <= 0) {
-                    car.xDir = -car.xDir;
+                   car.turnLeft();
+                   car.turnLeft();
                 }
                 else if (car instanceof Volvo240 && car.getX() >= 300){
                     car.stopEngine();
@@ -55,25 +60,25 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(car, x, y);
+                frame.getDrawPanel().moveit(car, x, y);
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+                frame.getDrawPanel().repaint();
             }
         }
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Vehicle car : cars) {
-            if (car.currentSpeed > 0) {
+            if (car.getCurrentSpeed() > 0) {
                 car.gas(gas);
             }
         }
     }
 
     // Calls the brake method for each car once
-    void brake(int amount) {
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : cars) {
             car.brake(brake);
@@ -81,23 +86,23 @@ public class CarController {
     }
 
     // Calls the startEngine method for each car once
-    void startEngine() {
+    public void startEngine() {
         for (Vehicle car : cars) {
             car.startEngine();
         }
     }
 
     // Calls the stopEngine method for each car once
-    void stopEngine() {
+    public void stopEngine() {
         for (Vehicle car : cars) {
             car.stopEngine();
         }
     }
 
     // Calls the turbo on method for each saab
-    void turboOn() {
+    public void turboOn() {
         for (Vehicle car : cars) {
-            if (car.modelName.equals("Saab95")) {
+            if (car.getModelName().equals("Classes.Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOn();
             }
@@ -105,9 +110,9 @@ public class CarController {
     }
 
     // Calls the turbo off method for each saab
-    void turboOff() {
+    public void turboOff() {
         for (Vehicle car : cars) {
-            if (car.modelName.equals("Saab95")) {
+            if (car.getModelName().equals("Classes.Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOff();
             }
@@ -115,9 +120,9 @@ public class CarController {
     }
 
     // Calls the lower method for scania truck
-    void lower() {
+    public void lower() {
         for (Vehicle car : cars) {
-            if (car.modelName.equals("Scania")) {
+            if (car.getModelName().equals("Classes.Scania")) {
                 Scania scania = (Scania) car;
                 scania.lower();
             }
@@ -125,15 +130,27 @@ public class CarController {
     }
 
     // Calls the raise method for scania truck
-    void raise() {
+    public void raise() {
         for (Vehicle car : cars) {
-            if (car.modelName.equals("Scania")) {
+            if (car.getModelName().equals("Classes.Scania")) {
                 Scania scania = (Scania) car;
                 scania.raise();
             }
         }
     }
 
+    public void add() {
+        if(cars.size() < 7){
+            cars.add(new Volvo240());
+
+        }
+    }
+
+    public void remove() {
+        if (cars.size() > 0 ) {
+            cars.removeLast();
+        }
+    }
 }
 
 

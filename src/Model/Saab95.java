@@ -1,6 +1,11 @@
+package Model;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
 import java.awt.*;
 
-public class Saab95 extends Vehicle implements IsPersonalVehicle { // Saab95 is a type of car
+public class Saab95 extends Vehicle implements IsPersonalVehicle { // Classes.Saab95 is a type of car
 
     private boolean turboOn;
     
@@ -9,7 +14,7 @@ public class Saab95 extends Vehicle implements IsPersonalVehicle { // Saab95 is 
         color = Color.red;
         enginePower = 125;
 	    turboOn = false;
-        modelName = "Saab95";
+        modelName = "Classes.Saab95";
         stopEngine();
     }
 

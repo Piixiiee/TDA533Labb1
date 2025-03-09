@@ -1,7 +1,7 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+import Interfaces.IsPersonalVehicle;
+import Model.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -293,7 +293,7 @@ public class TestMethods {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-// CarWorkshop tests
+// Classes.CarWorkshop tests
 
     @Test
     public void testTurnInVehicle() {

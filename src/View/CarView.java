@@ -1,5 +1,9 @@
-package view;
+package View;
 
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,11 +19,12 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class View extends JFrame {
+public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
 
-    Controller controller;
+    // The controller member
+    CarController carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -34,16 +39,23 @@ public class View extends JFrame {
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
+    JButton liftBedButton = new JButton("Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
+    JButton addCarButton = new JButton("Add car");
+    JButton removeCarButton = new JButton("Remove car");
+
     // Constructor
-    public View(String framename, Controller cc){
-        this.controller = cc;
+    public CarView(String framename, CarController cc){
+        this.carC = cc;
         initComponents(framename);
+    }
+
+    public DrawPanel getDrawPanel() {
+        return drawPanel;
     }
 
     // Sets everything in place and fits everything
@@ -84,6 +96,8 @@ public class View extends JFrame {
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(addCarButton, 6);
+        controlPanel.add(removeCarButton, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -161,6 +175,18 @@ public class View extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {carC.raise();}
 
+        });
+
+        //actionListener for adding car
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {carC.add();}
+        });
+
+        //actionListener for removing car
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {carC.remove();}
         });
 
         // Make the frame pack all it's components by respecting the sizes if possible.

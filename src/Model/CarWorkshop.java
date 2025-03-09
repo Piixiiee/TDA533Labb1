@@ -1,3 +1,8 @@
+package Model;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
 import java.util.*;
 
 public class CarWorkshop<T extends IsVehicle> implements Loadable<T> {

@@ -1,3 +1,9 @@
+package Model;
+import Controllers.*;
+import Interfaces.*;
+import Model.*;
+import View.*;
+
 import java.awt.*;
 
 public abstract class Vehicle implements Movable, IsVehicle {

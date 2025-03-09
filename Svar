@@ -3,7 +3,7 @@ Vilka för- och nackdelar ser ni?
 
 Svar: Vi borde använda subclassing eftersom att vi vill implementera metoder, inte bara se vilka metoder klasserna har.
 Vi vill inte använda interfaces eftersom att det finns flera metoder som båda bilarna ska ha som gör samma sak, vilket man hade
-behövt implementera i båda bil-classerna om vi använt ett src.Vehicle-interface istället för src.Vehicle-superclass.
+behövt implementera i båda bil-classerna om vi använt ett src.Model.Vehicle-interface istället för src.Model.Vehicle-superclass.
 Båda kan egentligen användas, men koden behöver dupliceras om vi använder interface över superclass, och därför
 sparar vi ingen tid och får mycket code duplication.
 Fördelarna med subclassing är att vi minskar code duplication eftersom att många av dom olika bilarnas metoder är samma.
@@ -11,8 +11,8 @@ Fördelarna med interfaces är att man kan ärva från flera interfaces, men i j
 
 - Vilken synlighet bör ni använda för de olika metoder och variabler som klasserna innehåller? Vilket gränssnitt bör ni exponera?
 
-Svar: Vi använder abstract i src.Vehicle för att se till att man inte kan skapa en "src.Vehicle" utan man måste skapa en src.Saab95 eller src.Volvo240.
-Vi använder protected på dom flesta variabler i src.Vehicle så att endast dom klasser som ärver ur src.Vehicle kan sätta värden på variablerna.
-Vi använder public på resterande metoder i src.Vehicle så att alla kan se informationen även om dom är utanför klassen och inte ärver från klassen.
+Svar: Vi använder abstract i src.Model.Vehicle för att se till att man inte kan skapa en "src.Model.Vehicle" utan man måste skapa en src.Model.Saab95 eller src.Model.Volvo240.
+Vi använder protected på dom flesta variabler i src.Model.Vehicle så att endast dom klasser som ärver ur src.Model.Vehicle kan sätta värden på variablerna.
+Vi använder public på resterande metoder i src.Model.Vehicle så att alla kan se informationen även om dom är utanför klassen och inte ärver från klassen.
 Vi använder private för turbo, samt trimfactor i dom olika bilarna eftersom att det bara är dom som ska kunna se, ändra och använda variablerna.
 Vi använder private för x- och y-directions så att ingenting ska kunna ändra våra directionsregler
