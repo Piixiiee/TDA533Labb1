@@ -8,6 +8,8 @@ import Model.Volvo240;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -15,21 +17,22 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
+    LinkedHashMap<Vehicle, Point> carPoints = new LinkedHashMap<>();
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
     BufferedImage scaniaImage;
     BufferedImage saabImage;
     // To keep track of a single car's position
-    Point volvoPoint = new Point();
-    Point scaniaPoint = new Point();
-    Point saabPoint = new Point();
+    //Point volvoPoint = new Point();
+    //Point scaniaPoint = new Point();
+    //Point saabPoint = new Point();
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,0);
 
     // TODO: Make this general for all cars
     public void moveit(Vehicle car, int x, int y){
-        if (car instanceof Volvo240) {
+       /* if (car instanceof Volvo240) {
             volvoPoint.x = x;
             volvoPoint.y = y;
         }
@@ -41,7 +44,8 @@ public class DrawPanel extends JPanel{
             saabPoint.x = x;
             saabPoint.y = y;
         }
-
+        */
+        carPoints.replace(car,new Point(x, y));
     }
 
     // Initializes the panel and reads the images
@@ -66,6 +70,15 @@ public class DrawPanel extends JPanel{
             ex.printStackTrace();
         }
 
+
+    }
+
+    public void addCar(Vehicle car) {
+        carPoints.put(car, new Point());
+    }
+
+    public void removeCar(Vehicle car){
+        carPoints.remove(car);
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -73,9 +86,27 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        //g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+
+        //g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y + 100, null);
+        //g.drawImage(saabImage, saabPoint.x, saabPoint.y + 200, null);
+        int i = 0;
+        for (var car : carPoints.keySet()) {
+            BufferedImage currentImage = volvoImage;
+            if (car instanceof Volvo240){
+                currentImage = volvoImage;
+            }
+            else if (car instanceof Scania) {
+                currentImage = scaniaImage;
+            }
+            else if (car instanceof Saab95) {
+                currentImage = saabImage;
+            }
+            Point point = carPoints.get(car);
+            g.drawImage(currentImage, point.x, point.y + i * 100, null);
+            i++;
+
+        }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
-        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y + 100, null);
-        g.drawImage(saabImage, saabPoint.x, saabPoint.y + 200, null);
     }
 }

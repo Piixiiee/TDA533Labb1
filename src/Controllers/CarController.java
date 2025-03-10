@@ -39,7 +39,9 @@ public class CarController {
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
-
+        cc.frame.getDrawPanel().addCar(cc.cars.get(0));
+        cc.frame.getDrawPanel().addCar(cc.cars.get(1));
+        cc.frame.getDrawPanel().addCar(cc.cars.get(2));
         // Start the timer
         cc.timer.start();
     }
@@ -62,8 +64,8 @@ public class CarController {
                 int y = (int) Math.round(car.getY());
                 frame.getDrawPanel().moveit(car, x, y);
                 // repaint() calls the paintComponent method of the panel
-                frame.getDrawPanel().repaint();
             }
+            frame.getDrawPanel().repaint();
         }
     }
 
@@ -140,15 +142,16 @@ public class CarController {
     }
 
     public void add() {
-        if(cars.size() < 7){
-            cars.add(new Volvo240());
+        if(cars.size() < 5){
+            cars.add(new Saab95());
+            frame.getDrawPanel().addCar(cars.getLast());
 
         }
     }
 
     public void remove() {
-        if (cars.size() > 0 ) {
-            cars.removeLast();
+        if (!cars.isEmpty()) {
+            frame.getDrawPanel().removeCar(cars.removeLast());
         }
     }
 }

@@ -53,7 +53,8 @@ public abstract class Vehicle implements Movable, IsVehicle {
     }
 
     public void startEngine(){
-        currentSpeed = 0.1;
+        if (getCurrentSpeed() == 0)
+            currentSpeed = 0.1;
     }
 
     public void stopEngine(){
