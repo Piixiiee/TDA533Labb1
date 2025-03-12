@@ -1,6 +1,7 @@
 UPG 2
 - Vilka avvikelser från MVC-idealet kan ni identifiera i det ursprungliga användargränssnittet? Vad borde ha gjorts smartare, dummare eller tunnare?
-När vi fick carController, drawPanel och carView så tyckte vi att
+När vi fick CarController, DrawPanel och CarView så tyckte vi att det fanns en del avvikelser i vilka ansvar som dom olika klasserna hade,
+gentemot vilka ansvar dom borde ha.
 
 
 - Vilka av dessa brister åtgärdade ni med er nya design från del 3? Hur då? Vilka brister åtgärdade ni inte?
@@ -15,9 +16,45 @@ UPG 3
     - Vilka designproblem skulle ni lösa genom att använda det? Om inte, varför skulle er design inte förbättras av att använda det?
 
     Observer:
+    Vi använder oss just nu av de observers som ingår i Swing när vi kommunicerar mellan vår view och model/controller, som t.ex. ActionListeners.
+    Användningen är avsiktlig då vi vill kunna skicka information mellan olika delar av vår MVC utan att view och model är beroende av varandra. Vi har
+    dock använt dem på lite fel ställen. Många av våra observers finns i view-delen av vår MVC, där de inte borde vara. Vi planerar att strukturera om
+    vår kod och placera våra observers i vår controller istället, där de känns mer passande. På så sätt har vi bara de faktiska view-komponenterna
+    i vår view.
 
-    Factory method: Vi använder Factory method när vi skapar våra bilar. Facory patte
+    TODO flytta observers från view till controller
+
+    Factory method:
+    Just nu använder vi Template method när vi skapar våra bilar. Template method design pattern handlar om att man har en superklass och sedan låter
+    subklasser skapa olika versioner av superklassen. I vårt fall har vi Vehicle som superklass och låter subklassern volvo, saab, mfl. skapa instanser av
+    Vehicle som alla är olika typer av vehicle, men med sina speciella egenskaper/attribut och metoder utöver/istället för dom som ärvdes ur vehicle.
+    Man hade kunnat använda Factory pattern för att få samma typ av fördelar som vi får av template method. Skillnaden är att Factory method är ett
+    "creational design pattern", och Template method är ett "Behavioral desgin pattern".
+    Både template och factory pattern är bra designpatterns att ha om man ska skapa många olika objekt som ändå liknar varandra, så att man undviker
+    så mycket kodduplicering som möjligt. Det gör också att koden är väldigt extensible då man lätt kan skapa en ny typ av bilklass, eller en truckklass, som får
+    samma metoder som finns i vehicle som avgör hur man startar motorn osv. Nackdelen med att byta till Factory method pattern, är att vi skulle behöva en
+    factory för varje typ av bil/truck som vi skapar, och det hade gett oss väldigt mycker fler klasser än vi redan har, trots att template pattern egentligen
+    uppfyller det vi hade velat få ut av factory method när det kommer till skapandet av våra vehicles.
+    Hade vi inte haft template eller factory method hade vi behövt skriva metoderna i varje enskild klass för dom olika bilar/trucks vi har,
+    nu räcker det att vi ärver metoderna och bara gör en @Override om det ska fungera på ett annat sätt än "grund-sättet".
+    Det underlättar alltså arbetet enormt, och gör att koden är lättare att förstå, ändra och extenda.
+
+    Däremot tycker vi att man hade kunnat ha en factory för att skapa våra Buttons. Vi skapar olika sorter av samma Buttons, och vi skulle eventuellt vilja
+    lägga till fler typer av buttons i framtiden (som när vi la till addCar och removeCar) och då hade det varit mycket smidigare att ha en button factory som
+    tillåter flexibiliteten vi var ute efter i vehicle. Just nu skriver vi in alla enskillda Buttons i vår initComponents i CarView, och vi tycker att det
+    hade varit både snyggare och bättre att dölja implementationen av buttons i en factory och det är dessutom bättre att ändra i en factory än i vår init.
+
 
     State:
+    Just nu använder vi oss inte av State pattern i vår kod. State pattern låter ett objekt ändra beteende beroende på vilket tillstånd det är i, med hjälp
+    av ett interface. Vi har avsiktligt valt att inte använda detta pattern för våra fordon. Även om de har olika implementeringar av samma metoder, något
+    som hade kunnat vara anledning för att använda State pattern, är de inte olika tillstånd av samma typ av objekt. De är helt olika objekt och vi vill
+    inte att ett fordonsobjekt ska kunna ändra vilket slags fordon det är. Vi har istället valt att göra en egen klass för varje typ av fordon.
+
+    Vi hade eventuellt kunnat använda oss av State pattern för tillstånden flak/ramp uppe/nere hos CarTransport och Scania, eftersom de beter sig annorlunda
+    beroende på huruvida deras flak/ramp är uppe eller nere. Vi känner dock att den kod vi har som tar hand om detta är såpass lite att det antagligen
+    inte är värt att lägga till ett interface och nya klasser för de olika tillstånden, utan att det bara hade skapat mer kod.
 
     Composite:
+    Composite pattern handlar om att man ska kunna använda olika objekt av samma typ både tillsammas och på olika sätt. Det görs i vår controller, model och views,
+    där View är compositen, vår Model är en leaf av strukturen, och Controller ändrar ___.
