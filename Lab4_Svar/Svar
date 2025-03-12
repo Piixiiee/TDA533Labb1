@@ -1,8 +1,10 @@
 UPG 2
 - Vilka avvikelser från MVC-idealet kan ni identifiera i det ursprungliga användargränssnittet? Vad borde ha gjorts smartare, dummare eller tunnare?
+När vi fick carController, drawPanel och carView så tyckte vi att
 
 
 - Vilka av dessa brister åtgärdade ni med er nya design från del 3? Hur då? Vilka brister åtgärdade ni inte?
+Vi ändrade i koden så att...
 
 
 UPG 3
@@ -11,3 +13,11 @@ UPG 3
     - Vilka designproblem löste ni genom att använda det?
     - Finns det något ställe där ni kan förbättra er design genom att använda detta design pattern?
     - Vilka designproblem skulle ni lösa genom att använda det? Om inte, varför skulle er design inte förbättras av att använda det?
+
+    Observer:
+
+    Factory method: Vi använder Factory method när vi skapar våra bilar. Facory patte
+
+    State:
+
+    Composite:
