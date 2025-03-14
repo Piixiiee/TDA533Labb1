@@ -56,5 +56,7 @@ UPG 3
     inte är värt att lägga till ett interface och nya klasser för de olika tillstånden, utan att det bara hade skapat mer kod.
 
     Composite:
-    Composite pattern handlar om att man ska kunna använda olika objekt av samma typ både tillsammas och på olika sätt. Det görs i vår controller, model och views,
-    där View är compositen, vår Model är en leaf av strukturen, och Controller ändrar ___.
+    Composite pattern handlar om att man ska kunna använda olika objekt av samma typ både tillsammas och på olika sätt. Det görs i vår Controller, Model och Views,
+    där View är compositen, vår Model är en leaf av strukturen, och Controller ändrar olika leafs i strukturen. Problemet vi hade innan var att vi hanterade flera saker i en modul,
+    då vi kunde dela upp det så det följer Separation of concerns principen. Just nu i View har vi Carview (ritar panel och buttons) och DrawPanel (ritar bilar) som verkar inte
+    stämma överens med namnen, så vi skulle eventuellt kunna ändra det.
