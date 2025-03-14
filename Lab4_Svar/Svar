@@ -1,12 +1,19 @@
 UPG 2
 - Vilka avvikelser från MVC-idealet kan ni identifiera i det ursprungliga användargränssnittet? Vad borde ha gjorts smartare, dummare eller tunnare?
-När vi fick CarController, DrawPanel och CarView så tyckte vi att det fanns en del avvikelser i vilka ansvar som dom olika klasserna hade,
-gentemot vilka ansvar dom borde ha.
-
+När vi fick CarController, DrawPanel och CarView så tyckte vi att det fanns en del avvikelser i vilka ansvar som de olika klasserna hade,
+gentemot vilka ansvar de borde ha. I vyn fanns observers som hade passat bättre i controllern, och logik för positioner som vi tror hade kunnat
+vara en del av modellen. Vyn kändes lite för smart och borde ha gjorts dummare. I controllern fanns en main-metod som borde ha funnits i en
+applikationsklass, något som inte fanns alls i det ursprungliga användargränssnittet. Controllern hade också en gas-metod som vi tror hade
+passat bättre som en del av modellen, och att controllern bara skulle ha observers som sedan kallar på metoderna i modellen. Controllern
+borde alltså gjorts tunnare.
 
 - Vilka av dessa brister åtgärdade ni med er nya design från del 3? Hur då? Vilka brister åtgärdade ni inte?
-Vi ändrade i koden så att...
-
+Vi har lagt till en CarApp som startar igång programmet, vi har strukturerat om kodbasen i mapparna: model, view, controller, interfaces och application för
+att följa MVC bättre och försöka se till så att relationerna mellan modulerna följer low coupling, high cohesion så bra som möjligt.
+Efter vår omstrukturering gör inte CarView några beräkningar, alltså är den dumb. Vi tror dock att vår DrawPanel fortfarande gör beräkningar i och med
+moveIt, och funderar på om man kanske hade kunnat lösa det genom att flytta över det till model istället. Vår controller har också fortfarande
+några metoder som kanske borde finnas i modellen, och att den istället har observers som nu finns i vår vy.
+,
 
 UPG 3
 - Observer, Factory Method, State, Composite. För vart och ett av dessa fyra designmönster, svara på följande frågor:
@@ -21,8 +28,6 @@ UPG 3
     dock använt dem på lite fel ställen. Många av våra observers finns i view-delen av vår MVC, där de inte borde vara. Vi planerar att strukturera om
     vår kod och placera våra observers i vår controller istället, där de känns mer passande. På så sätt har vi bara de faktiska view-komponenterna
     i vår view.
-
-    TODO flytta observers från view till controller
 
     Factory method:
     Just nu använder vi Template method när vi skapar våra bilar. Template method design pattern handlar om att man har en superklass och sedan låter
@@ -43,7 +48,6 @@ UPG 3
     lägga till fler typer av buttons i framtiden (som när vi la till addCar och removeCar) och då hade det varit mycket smidigare att ha en button factory som
     tillåter flexibiliteten vi var ute efter i vehicle. Just nu skriver vi in alla enskillda Buttons i vår initComponents i CarView, och vi tycker att det
     hade varit både snyggare och bättre att dölja implementationen av buttons i en factory och det är dessutom bättre att ändra i en factory än i vår init.
-
 
     State:
     Just nu använder vi oss inte av State pattern i vår kod. State pattern låter ett objekt ändra beteende beroende på vilket tillstånd det är i, med hjälp
